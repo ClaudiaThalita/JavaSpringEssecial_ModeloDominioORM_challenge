@@ -23,6 +23,10 @@ public class Participante {
     
     private String email;
     
-    @ManyToMany(mappedBy = "participantes")
+  
+    @ManyToMany
+    @JoinTable(name = "tb_participante_atividade",
+            joinColumns = @JoinColumn(name = "participante_id" ),
+            inverseJoinColumns = @JoinColumn(name = "atividade_id"))    
     private List<Atividade> atividades;
 }

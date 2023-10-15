@@ -7,8 +7,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_atividade")
@@ -25,11 +26,15 @@ public class Atividade {
 	    
 	    private Double preco;
 
-	    @ManyToMany
-	    @JoinTable(name = "tb_atividade_participante",
-	            joinColumns = @JoinColumn(name = "atividade_id"),
-	            inverseJoinColumns = @JoinColumn(name = "participante_id"))    
+	    @OneToMany(mappedBy = "atividade")
+	    private List<Bloco> blocos;
+	    
+	    @ManyToOne
+	    @JoinColumn(name = "categoria_id")
+	    private Categoria categoria;
+	    
+	    
+	    @ManyToMany(mappedBy = "atividades")
 	    private List<Participante> participantes;
 	
-
 }
